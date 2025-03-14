@@ -1,0 +1,16 @@
+yaml
+
+pipeline:
+  stages:
+   -build 
+      script:
+	- echo "building the application"
+        - mkdir /tmp/build
+        - cp -r src/ /tmp/build/
+   -deploy:
+	script:
+   	  - echo "deploying application"
+          - scp  -r /tmp/build/ user@server:/var/www/HTML
+        
+
+C@r0l1n@423*
