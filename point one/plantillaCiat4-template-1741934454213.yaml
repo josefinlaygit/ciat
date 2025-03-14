@@ -1,0 +1,1072 @@
+---
+Metadata:
+  AWSToolsMetrics:
+    IaC_Generator: "arn:aws:cloudformation:us-east-2:205930617432:generatedTemplate/00cecc48-e5bb-4cbb-90a2-ba16e8e06d39"
+Resources:
+  RDSDBInstance00database200H6vqD:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::RDS::DBInstance"
+    DeletionPolicy: "Retain"
+    Properties:
+      StorageEncrypted: true
+      AssociatedRoles: []
+      CertificateDetails: {}
+      Port: "5432"
+      ProcessorFeatures: []
+      StorageThroughput: 0
+      PreferredBackupWindow: "03:11-03:41"
+      MonitoringInterval: 0
+      DBParameterGroupName: "default.postgres17"
+      Endpoint: {}
+      NetworkType: "IPV4"
+      DedicatedLogVolume: false
+      CopyTagsToSnapshot: true
+      MultiAZ: false
+      Engine: "postgres"
+      Tags: []
+      PerformanceInsightsKMSKeyId:
+        Fn::GetAtt:
+        - "KMSKey00f0389c57674e491eb6deb7782cf1261900jf4Gy"
+        - "Arn"
+      EngineLifecycleSupport: "open-source-rds-extended-support-disabled"
+      LicenseModel: "postgresql-license"
+      EngineVersion: "17.2"
+      StorageType: "gp2"
+      KmsKeyId:
+        Fn::GetAtt:
+        - "KMSKey00f0389c57674e491eb6deb7782cf1261900jf4Gy"
+        - "Arn"
+      DBInstanceClass: "db.t4g.micro"
+      PerformanceInsightsRetentionPeriod: 7
+      AvailabilityZone: "us-east-2b"
+      OptionGroupName: "default:postgres-17"
+      PreferredMaintenanceWindow: "fri:09:05-fri:09:35"
+      EnablePerformanceInsights: true
+      AutoMinorVersionUpgrade: true
+      DBSubnetGroupName:
+        Ref: "RDSDBSubnetGroup00defaultvpc0452b1a4b3ca3b02700fjgjh"
+      DeletionProtection: false
+      DBInstanceIdentifier: "database-2"
+      AllocatedStorage: "20"
+      CACertificateIdentifier: "rds-ca-rsa2048-g1"
+      ManageMasterUserPassword: true
+      MasterUserSecret:
+        KmsKeyId: "arn:aws:kms:us-east-2:205930617432:key/a6f6da02-3efc-42a1-961c-e53c5421211b"
+      VPCSecurityGroups:
+      - Fn::GetAtt:
+        - "EC2SecurityGroup00sg089914b6a4757bf3f00eg196"
+        - "GroupId"
+      - Fn::GetAtt:
+        - "EC2SecurityGroup00sg0b76d0c90f5e108bd00gJBk0"
+        - "GroupId"
+      DBSecurityGroups: []
+      MasterUsername: "postgres"
+      EnableIAMDatabaseAuthentication: false
+      MaxAllocatedStorage: 1000
+      BackupRetentionPeriod: 1
+      PubliclyAccessible: false
+      EnableCloudwatchLogsExports: []
+  EC2Route00rtb09dc30b2a72d2875d00H6Jpc:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb09dc30b2a72d2875d006yv57"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2RouteTable00rtb0b5df637d3415b4e7001wOfh:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      Tags:
+      - Value: "rutas"
+        Key: "Name"
+  EC2VolumeAttachment00vol0d401ad8be0d0f63c00G3PYi:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VolumeAttachment"
+    DeletionPolicy: "Retain"
+    Properties:
+      InstanceId: "i-0b4575794df133534"
+      VolumeId: "vol-0d401ad8be0d0f63c"
+      Device: "/dev/sda1"
+  EC2Subnet00subnet046cc526b1108779200a5nDw:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      MapPublicIpOnLaunch: false
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az2"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.32.144.0/20"
+      Ipv6Native: false
+      Tags:
+      - Value: "proyecto-subnet-private2-us-east-2b"
+        Key: "Name"
+  ElasticLoadBalancingV2Listener00listenerappciatBalancer808462a4728b4802ee10b1da4bf6f29e00DgdlB:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ElasticLoadBalancingV2::Listener"
+    DeletionPolicy: "Retain"
+    Properties:
+      ListenerAttributes:
+      - Value: "true"
+        Key: "routing.http.response.server.enabled"
+      - Value: ""
+        Key: "routing.http.response.access_control_allow_headers.header_value"
+      - Value: ""
+        Key: "routing.http.response.x_frame_options.header_value"
+      - Value: ""
+        Key: "routing.http.response.access_control_allow_methods.header_value"
+      - Value: ""
+        Key: "routing.http.response.access_control_allow_origin.header_value"
+      - Value: ""
+        Key: "routing.http.response.access_control_allow_credentials.header_value"
+      - Value: ""
+        Key: "routing.http.response.x_content_type_options.header_value"
+      - Value: ""
+        Key: "routing.http.response.content_security_policy.header_value"
+      - Value: ""
+        Key: "routing.http.response.access_control_expose_headers.header_value"
+      - Value: ""
+        Key: "routing.http.response.strict_transport_security.header_value"
+      - Value: ""
+        Key: "routing.http.response.access_control_max_age.header_value"
+      Protocol: "HTTP"
+      LoadBalancerArn:
+        Ref: "ElasticLoadBalancingV2LoadBalancer00loadbalancerappciatBalancer808462a4728b480200uupaL"
+      DefaultActions:
+      - TargetGroupArn:
+          Ref: "ElasticLoadBalancingV2TargetGroup00targetgroupciatbd15255eeb10c82700FOToF"
+        Type: "forward"
+        ForwardConfig:
+          TargetGroupStickinessConfig:
+            Enabled: false
+          TargetGroups:
+          - TargetGroupArn:
+              Ref: "ElasticLoadBalancingV2TargetGroup00targetgroupciatbd15255eeb10c82700FOToF"
+            Weight: 1
+      Port: 80
+  EC2Route00rtb0e7cb9339b63f637a00N68il:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0e7cb9339b63f637a00xqzii"
+      DestinationCidrBlock: "172.64.0.0/16"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2NetworkAcl00acl0ad8e469d9ed7e8f1001QtmJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkAcl"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      Tags: []
+  EC2SecurityGroup00sg072d1928394e6968600yzbZL:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "Security group attached to instances to securely connect\
+        \ to database-2. Modification could lead to connection loss."
+      GroupName: "ec2-rds-2"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupEgress:
+      - IpProtocol: "tcp"
+        DestinationSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2SecurityGroup00sg02a1b169e63ec933100NKmsU"
+          - "GroupId"
+        Description: "Rule to allow connections to database-2 from any instances this\
+          \ security group is attached to"
+        FromPort: 5432
+        ToPort: 5432
+  EC2Instance00i0b4575794df13353400f8zVa:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Instance"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tenancy: "default"
+      SecurityGroups:
+      - "ec2-rds-3"
+      - "launch-wizard-6"
+      PrivateIpAddress: "172.64.42.23"
+      InstanceInitiatedShutdownBehavior: "stop"
+      CpuOptions:
+        ThreadsPerCore: 1
+        CoreCount: 1
+      BlockDeviceMappings:
+      - Ebs:
+          SnapshotId: "snap-04a3335b9ac6dea32"
+          VolumeType: "gp2"
+          Iops: 100
+          VolumeSize: 8
+          Encrypted: false
+          DeleteOnTermination: true
+        DeviceName: "/dev/sda1"
+      AvailabilityZone: "us-east-2a"
+      PrivateDnsNameOptions:
+        EnableResourceNameDnsARecord: true
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      SubnetId:
+        Ref: "EC2Subnet00subnet0525ea280f954249100nn3CH"
+      SecurityGroupIds:
+      - "sg-049b9971a0bc761ac"
+      - "sg-02bd0481bf7113a5b"
+      EbsOptimized: false
+      DisableApiTermination: false
+      KeyName: "claveciat2"
+      SourceDestCheck: true
+      Volumes:
+      - VolumeId: "vol-0d401ad8be0d0f63c"
+        Device: "/dev/sda1"
+      PlacementGroupName: ""
+      VpcId: "vpc-0452b1a4b3ca3b027"
+      State:
+        Code: "16"
+        Name: "running"
+      NetworkInterfaces:
+      - PrivateIpAddresses:
+        - PrivateIpAddress: "172.64.42.23"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "0"
+        GroupSet:
+        - Ref: "EC2SecurityGroup00sg049b9971a0bc761ac00QRFXu"
+        - Ref: "EC2SecurityGroup00sg02bd0481bf7113a5b00C0BpZ"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2Subnet00subnet0525ea280f954249100nn3CH"
+        AssociatePublicIpAddress: true
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterface00eni045206da59980410600Ovnjf"
+        DeleteOnTermination: true
+      ImageId: "ami-0884d2865dbe9de4b"
+      InstanceType: "t2.micro"
+      Monitoring: false
+      Tags:
+      - Value: "instancia3"
+        Key: "Name"
+      CreditSpecification:
+        CPUCredits: "standard"
+  EC2SubnetNetworkAclAssociation00aclassoc0d97489ca85bccdf400P4Xtr:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0ad8e469d9ed7e8f1001QtmJ"
+      SubnetId:
+        Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+  ElasticLoadBalancingV2TargetGroup00targetgroupciatbd15255eeb10c82700FOToF:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      IpAddressType: "ipv4"
+      HealthCheckIntervalSeconds: 30
+      Matcher:
+        HttpCode: "200"
+      HealthCheckPath: "/"
+      Port: 80
+      Targets: []
+      HealthCheckEnabled: true
+      ProtocolVersion: "HTTP1"
+      UnhealthyThresholdCount: 2
+      HealthCheckTimeoutSeconds: 5
+      Name: "ciat"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      HealthyThresholdCount: 5
+      HealthCheckProtocol: "HTTP"
+      TargetGroupAttributes:
+      - Value: "lb_cookie"
+        Key: "stickiness.type"
+      - Value: "86400"
+        Key: "stickiness.app_cookie.duration_seconds"
+      - Value: "1"
+        Key: "target_group_health.dns_failover.minimum_healthy_targets.count"
+      - Value: "use_load_balancer_configuration"
+        Key: "load_balancing.cross_zone.enabled"
+      - Value: "86400"
+        Key: "stickiness.lb_cookie.duration_seconds"
+      - Value: "off"
+        Key: "target_group_health.dns_failover.minimum_healthy_targets.percentage"
+      - Value: "false"
+        Key: "stickiness.enabled"
+      - Value: "off"
+        Key: "target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage"
+      - Value: "0"
+        Key: "slow_start.duration_seconds"
+      - Value: "300"
+        Key: "deregistration_delay.timeout_seconds"
+      - Value: "1"
+        Key: "target_group_health.unhealthy_state_routing.minimum_healthy_targets.count"
+      - Value: "off"
+        Key: "load_balancing.algorithm.anomaly_mitigation"
+      - Value: ""
+        Key: "stickiness.app_cookie.cookie_name"
+      - Value: "round_robin"
+        Key: "load_balancing.algorithm.type"
+      TargetType: "instance"
+      HealthCheckPort: "traffic-port"
+      Protocol: "HTTP"
+      Tags: []
+  EC2Route00rtb07610233224596f7800w3MyJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb07610233224596f7800OTTn3"
+      DestinationCidrBlock: "172.64.0.0/16"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2SecurityGroup00sg049b9971a0bc761ac00QRFXu:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "Security group attached to instances to allow them to securely\
+        \ connect to database-2. Modification could lead to connection loss."
+      GroupName: "ec2-rds-3"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupEgress:
+      - IpProtocol: "tcp"
+        DestinationSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2SecurityGroup00sg089914b6a4757bf3f00eg196"
+          - "GroupId"
+        Description: "Rule to allow connections to database-2 from any instances this\
+          \ security group is attached to"
+        FromPort: 5432
+        ToPort: 5432
+  EC2Subnet00subnet0525ea280f954249100nn3CH:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az1"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: true
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.64.0.0/16"
+      Ipv6Native: false
+      Tags:
+      - Value: "subred publica"
+        Key: "Name"
+  EC2SecurityGroup00sg02a1b169e63ec933100NKmsU:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "Security group attached to database-2 to allow EC2 instances\
+        \ with specific security groups attached to connect to the database. Modification\
+        \ could lead to connection loss."
+      GroupName: "rds-ec2-2"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - IpProtocol: "tcp"
+        Description: "Rule to allow connections from EC2 instances with sg-072d1928394e69686\
+          \ attached"
+        FromPort: 5432
+        SourceSecurityGroupId: "sg-072d1928394e69686"
+        ToPort: 5432
+        SourceSecurityGroupOwnerId: "205930617432"
+  EC2RouteTable00rtb09dc30b2a72d2875d006yv57:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      Tags:
+      - Value: "tablarutas"
+        Key: "Name"
+  EC2SecurityGroup00sg09e7a205a4d11f5ff0032TYk:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "launch-wizard-3 created 2025-03-13T21:52:51.373Z"
+      GroupName: "launch-wizard-3"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      - IpProtocol: "tcp"
+        FromPort: 80
+        SourceSecurityGroupId: "sg-0b76d0c90f5e108bd"
+        ToPort: 80
+        SourceSecurityGroupOwnerId: "205930617432"
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 443
+        ToPort: 443
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2SecurityGroup00sg0c72cfa6f1c544b7400gTvm8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "vpc link security group"
+      GroupName: "vpclinksg"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+  ApiGatewayV2Deployment00af7emd00JJval:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ApiGatewayV2::Deployment"
+    DeletionPolicy: "Retain"
+    Properties:
+      ApiId:
+        Ref: "ApiGatewayV2Api00e94mideij800NmUIw"
+      Description: "Automatic deployment triggered by changes to the Api configuration"
+  EC2VPCDHCPOptionsAssociation00vpc0452b1a4b3ca3b02700UzgAr:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPCDHCPOptionsAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      DhcpOptionsId:
+        Ref: "EC2DHCPOptions00dopt019c847035c1cd89f001tSrA"
+  EC2Route00rtb00a7dd2cad65da45800sabvF:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb00a7dd2cad65da45800Sgd54"
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId:
+        Ref: "EC2InternetGateway00igw0640e941758a2b47500fh9RX"
+      VpcEndpointId: "igw-0640e941758a2b475"
+  EC2VPCEndpoint00vpce0c5aa1212ba5569c200uY9Tr:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPCEndpoint"
+    DeletionPolicy: "Retain"
+    Properties:
+      PrivateDnsEnabled: false
+      IpAddressType: "not-specified"
+      DnsOptions:
+        PrivateDnsOnlyForInboundResolverEndpoint: "NotSpecified"
+        DnsRecordIpType: "not-specified"
+      ResourceConfigurationArn: ""
+      SecurityGroupIds: []
+      SubnetIds: []
+      ServiceNetworkArn: ""
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      RouteTableIds:
+      - Ref: "EC2RouteTable00rtb07610233224596f7800OTTn3"
+      - Ref: "EC2RouteTable00rtb0e7cb9339b63f637a00xqzii"
+      ServiceName: "com.amazonaws.us-east-2.s3"
+      PolicyDocument:
+        Version: "2008-10-17"
+        Statement:
+        - Resource: "*"
+          Action: "*"
+          Effect: "Allow"
+          Principal: "*"
+      VpcEndpointType: "Gateway"
+      Tags:
+      - Value: "proyecto-vpce-s3"
+        Key: "Name"
+  EC2SecurityGroup00sg02171aa6155623f9c00lZXTv:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "launch-wizard-4 created 2025-03-14T00:26:34.649Z"
+      GroupName: "launch-wizard-4"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 443
+        ToPort: 443
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2Route00rtb09dc30b2a72d2875d00DwCJX:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb09dc30b2a72d2875d006yv57"
+      DestinationCidrBlock: "172.64.0.0/16"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  Route53ResolverResolverRuleAssociation00rslvrautodefinedassocvpc0452b1a4b3ca3b027internetresolver00tqIve:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Route53Resolver::ResolverRuleAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      VPCId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      ResolverRuleId: "rslvr-autodefined-rr-internet-resolver"
+      Name: "System Rule Association"
+  EC2NetworkInterface00eni045206da59980410600Ovnjf:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Retain"
+    Properties:
+      Description: ""
+      PrivateIpAddress: "172.64.42.23"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "172.64.42.23"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-049b9971a0bc761ac"
+      - "sg-02bd0481bf7113a5b"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2Subnet00subnet0525ea280f954249100nn3CH"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+  EC2Route00rtb00a7dd2cad65da45800OVpM4:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb00a7dd2cad65da45800Sgd54"
+      DestinationCidrBlock: "172.64.0.0/16"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2SecurityGroup00sg02e5541ab62bc5ade00TUwkl:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "loadBalancersg"
+      GroupName: "loadbalancersg"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - IpProtocol: "tcp"
+        FromPort: 80
+        SourceSecurityGroupId: "sg-0c72cfa6f1c544b74"
+        ToPort: 80
+        SourceSecurityGroupOwnerId: "205930617432"
+      SecurityGroupEgress:
+      - IpProtocol: "tcp"
+        DestinationSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2SecurityGroup00sg0c72cfa6f1c544b7400gTvm8"
+          - "GroupId"
+        FromPort: 80
+        ToPort: 80
+  EC2Route00rtb07610233224596f7800KEJzN:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb07610233224596f7800OTTn3"
+      DestinationPrefixListId: "pl-7ba54012"
+      GatewayId: "vpce-0c5aa1212ba5569c2"
+      VpcEndpointId: "vpce-0c5aa1212ba5569c2"
+  EC2SecurityGroup00sg02bd0481bf7113a5b00C0BpZ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "launch-wizard-6 created 2025-03-14T01:51:45.927Z"
+      GroupName: "launch-wizard-6"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 443
+        ToPort: 443
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2Route00rtb00a7dd2cad65da45800ISEl5:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb00a7dd2cad65da45800Sgd54"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2RouteTable00rtb0e7cb9339b63f637a00xqzii:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      Tags:
+      - Value: "proyecto-rtb-private1-us-east-2a"
+        Key: "Name"
+  EC2RouteTable00rtb00a7dd2cad65da45800Sgd54:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+  EC2Route00rtb0b5df637d3415b4e700NhGwx:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0b5df637d3415b4e7001wOfh"
+      DestinationCidrBlock: "172.64.0.0/16"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2SubnetNetworkAclAssociation00aclassoc03740ced408460f67001CwFf:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0ad8e469d9ed7e8f1001QtmJ"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+  EC2Route00rtb0e7cb9339b63f637a009AQlW:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0e7cb9339b63f637a00xqzii"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2VPC00vpc0452b1a4b3ca3b02700hFvxa:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPC"
+    DeletionPolicy: "Retain"
+    Properties:
+      CidrBlock: "172.32.0.0/16"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags:
+      - Value: "proyecto-vpc"
+        Key: "Name"
+  EC2SubnetNetworkAclAssociation00aclassoc0271a2eb6fd99712500oahgB:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0ad8e469d9ed7e8f1001QtmJ"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0525ea280f954249100nn3CH"
+  ApiGatewayV2VpcLink001qvgpq00IFq1A:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ApiGatewayV2::VpcLink"
+    DeletionPolicy: "Retain"
+    Properties:
+      SubnetIds:
+      - Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+      - Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+      SecurityGroupIds:
+      - "sg-0c72cfa6f1c544b74"
+      Tags: {}
+      Name: "linkciat"
+  EC2Route00rtb0b5df637d3415b4e700u07nN:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0b5df637d3415b4e7001wOfh"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2SubnetRouteTableAssociation00rtbassoc0788aefe5674e238c009ItTm:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0e7cb9339b63f637a00xqzii"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+  EC2Subnet00subnet0c5886ad207b9be8300WPe4P:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      MapPublicIpOnLaunch: false
+      EnableDns64: false
+      AvailabilityZoneId: "use2-az1"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.32.128.0/20"
+      Ipv6Native: false
+      Tags:
+      - Value: "proyecto-subnet-private1-us-east-2a"
+        Key: "Name"
+  EC2SecurityGroup00sg0b03adf6dd4c4e94200wrs5f:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "launch-wizard-5 created 2025-03-14T01:17:20.997Z"
+      GroupName: "launch-wizard-5"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 443
+        ToPort: 443
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  ApiGatewayV2Api00e94mideij800NmUIw:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ApiGatewayV2::Api"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteSelectionExpression: "$request.method $request.path"
+      DisableExecuteApiEndpoint: false
+      ProtocolType: "HTTP"
+      Tags: {}
+      Name: "ApiCIAT"
+  EC2InternetGateway00igw0640e941758a2b47500fh9RX:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::InternetGateway"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tags:
+      - Value: "gateway1"
+        Key: "Name"
+  EC2SubnetRouteTableAssociation00rtbassoc0831f4eb55d46061400ECbR5:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb00a7dd2cad65da45800Sgd54"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0525ea280f954249100nn3CH"
+  ElasticLoadBalancingV2LoadBalancer00loadbalancerappciatBalancer808462a4728b480200uupaL:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    DeletionPolicy: "Retain"
+    Properties:
+      IpAddressType: "ipv4"
+      SecurityGroups:
+      - "sg-0c72cfa6f1c544b74"
+      LoadBalancerAttributes:
+      - Value: ""
+        Key: "access_logs.s3.prefix"
+      - Value: "append"
+        Key: "routing.http.xff_header_processing.mode"
+      - Value: "true"
+        Key: "routing.http2.enabled"
+      - Value: "false"
+        Key: "waf.fail_open.enabled"
+      - Value: ""
+        Key: "connection_logs.s3.bucket"
+      - Value: "false"
+        Key: "access_logs.s3.enabled"
+      - Value: "false"
+        Key: "zonal_shift.config.enabled"
+      - Value: "defensive"
+        Key: "routing.http.desync_mitigation_mode"
+      - Value: ""
+        Key: "connection_logs.s3.prefix"
+      - Value: "false"
+        Key: "routing.http.x_amzn_tls_version_and_cipher_suite.enabled"
+      - Value: "false"
+        Key: "routing.http.preserve_host_header.enabled"
+      - Value: "true"
+        Key: "load_balancing.cross_zone.enabled"
+      - Value: "false"
+        Key: "routing.http.xff_client_port.enabled"
+      - Value: ""
+        Key: "access_logs.s3.bucket"
+      - Value: "false"
+        Key: "deletion_protection.enabled"
+      - Value: "3600"
+        Key: "client_keep_alive.seconds"
+      - Value: "false"
+        Key: "routing.http.drop_invalid_header_fields.enabled"
+      - Value: "false"
+        Key: "connection_logs.s3.enabled"
+      - Value: "60"
+        Key: "idle_timeout.timeout_seconds"
+      Subnets:
+      - Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+      - Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+      Type: "application"
+      Scheme: "internal"
+      EnablePrefixForIpv6SourceNat: "off"
+      EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic: ""
+      Tags: []
+      Name: "ciatBalancer"
+      SubnetMappings:
+      - SubnetId:
+          Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+      - SubnetId:
+          Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+  EC2SubnetRouteTableAssociation00rtbassoc0c3a54cf93b978c5d008xnei:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb07610233224596f7800OTTn3"
+      SubnetId:
+        Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+  EC2RouteTable00rtb07610233224596f7800OTTn3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Retain"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      Tags:
+      - Value: "proyecto-rtb-private2-us-east-2b"
+        Key: "Name"
+  EC2Route00rtb0e7cb9339b63f637a00W5Cho:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0e7cb9339b63f637a00xqzii"
+      DestinationPrefixListId: "pl-7ba54012"
+      GatewayId: "vpce-0c5aa1212ba5569c2"
+      VpcEndpointId: "vpce-0c5aa1212ba5569c2"
+  EC2DHCPOptions00dopt019c847035c1cd89f001tSrA:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::DHCPOptions"
+    DeletionPolicy: "Retain"
+    Properties:
+      DomainName: "us-east-2.compute.internal"
+      DomainNameServers:
+      - "AmazonProvidedDNS"
+      Tags: []
+  EC2Route00rtb07610233224596f7800GEhtE:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Retain"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb07610233224596f7800OTTn3"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  KMSKey00f0389c57674e491eb6deb7782cf1261900jf4Gy:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::KMS::Key"
+    DeletionPolicy: "Retain"
+    Properties:
+      Origin: "AWS_KMS"
+      MultiRegion: false
+      Description: "Default key that protects my RDS database volumes when no other\
+        \ key is defined"
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+        - Condition:
+            StringEquals:
+              kms:CallerAccount: "205930617432"
+              kms:ViaService: "rds.us-east-2.amazonaws.com"
+          Resource: "*"
+          Action:
+          - "kms:Encrypt"
+          - "kms:Decrypt"
+          - "kms:ReEncrypt*"
+          - "kms:GenerateDataKey*"
+          - "kms:CreateGrant"
+          - "kms:ListGrants"
+          - "kms:DescribeKey"
+          Effect: "Allow"
+          Principal:
+            AWS: "*"
+          Sid: "Allow access through RDS for all principals in the account that are\
+            \ authorized to use RDS"
+        - Resource: "*"
+          Action:
+          - "kms:Describe*"
+          - "kms:Get*"
+          - "kms:List*"
+          - "kms:RevokeGrant"
+          Effect: "Allow"
+          Principal:
+            AWS: "arn:aws:iam::205930617432:root"
+          Sid: "Allow direct access to key metadata to the account"
+        Id: "auto-rds-2"
+      KeySpec: "SYMMETRIC_DEFAULT"
+      Enabled: true
+      EnableKeyRotation: false
+      KeyUsage: "ENCRYPT_DECRYPT"
+      Tags: []
+  EC2SecurityGroup00sg089914b6a4757bf3f00eg196:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "Security group attached to database-2 to allow EC2 instances\
+        \ with specific security groups attached to connect to the database. Modification\
+        \ could lead to connection loss."
+      GroupName: "rds-ec2-3"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - IpProtocol: "tcp"
+        Description: "Rule to allow connections from EC2 instances with sg-049b9971a0bc761ac\
+          \ attached"
+        FromPort: 5432
+        SourceSecurityGroupId: "sg-049b9971a0bc761ac"
+        ToPort: 5432
+        SourceSecurityGroupOwnerId: "205930617432"
+  RDSDBSubnetGroup00defaultvpc0452b1a4b3ca3b02700fjgjh:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::RDS::DBSubnetGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      DBSubnetGroupDescription: "Created from the RDS Management Console"
+      SubnetIds:
+      - Ref: "EC2Subnet00subnet046cc526b1108779200a5nDw"
+      - Ref: "EC2Subnet00subnet0c5886ad207b9be8300WPe4P"
+      DBSubnetGroupName: "default-vpc-0452b1a4b3ca3b027"
+  EC2Volume00vol0d401ad8be0d0f63c00uXAVy:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::Volume"
+    DeletionPolicy: "Retain"
+    Properties:
+      MultiAttachEnabled: false
+      SnapshotId: "snap-04a3335b9ac6dea32"
+      VolumeType: "gp2"
+      Encrypted: false
+      Size: 8
+      AutoEnableIO: true
+      AvailabilityZone: "us-east-2a"
+      Iops: 100
+      Tags: []
+  EC2SecurityGroup00sg0b76d0c90f5e108bd00gJBk0:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "default VPC security group"
+      GroupName: "default"
+      VpcId:
+        Ref: "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+      SecurityGroupIngress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        SourceSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2VPC00vpc0452b1a4b3ca3b02700hFvxa"
+          - "DefaultSecurityGroup"
+        ToPort: -1
+        SourceSecurityGroupOwnerId: "205930617432"
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
